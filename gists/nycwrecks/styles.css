@@ -1,0 +1,35 @@
+body, html {
+    /*background: #101316;*/
+    background: #000306;
+    color: #f3f6f9;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    height: 100%;
+}
+
+a {
+    color: #06c;
+    cursor: pointer;
+    text-decoration: none;
+}
+a:hover {
+    color: #09f;
+    text-decoration: underline;
+}
+
+.fullscreen-map {
+    height: 90%;
+    width: 90%;
+    text-align: center;
+}
+
+.county {
+    fill: none;
+}
+
+.state {
+    fill: #333639;
+    /* Set the fill-opacity to 0 so we get click events */
+    fill-opacity: 0;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}

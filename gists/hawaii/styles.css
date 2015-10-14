@@ -1,0 +1,39 @@
+/*
+Adobe Kuler
+https://color.adobe.com/Neutral-Blue-color-theme-22361
+#FCFFF5 - light khaki
+#D1DBBD - dark khaki
+#91AA9D - blue khaki
+#3E606F - gray blue
+#193441 - dark blue
+*/
+body, html {
+    background: #193441;
+    color: #f3f6f9;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    height: 100%;
+}
+
+.fullscreen-map {
+    height: 100%;
+    width: 100%;
+    text-align: right;
+}
+
+.shadow {
+    fill: none;
+    stroke: none;
+    stroke-width: 7.5px;
+    stroke-opacity: 0.5;
+}
+
+.state {
+    cursor: pointer;
+    fill: #91AA9D;
+    stroke: #fcfff5;
+    stroke-width: 0px;
+}
+.state:hover {
+    fill: #d1dbbd;
+}
+

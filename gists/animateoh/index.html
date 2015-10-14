@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <title>Animated Ohio Map</title>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Vendor css -->
+
+        <!-- App css -->
+        <link rel="stylesheet" href="styles.css" />
+
+    </head>
+
+    <body>
+
+        <div id="map" class="fullscreen-map"></div>
+
+        <a id="redraw">Re-Draw</a>
+
+        <!-- Vendor Scripts -->
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="http://d3js.org/topojson.v1.min.js"></script>
+        <script src="http://momentjs.com/downloads/moment.min.js"></script>
+
+        <!-- Page Scripts -->
+        <script src="map.js"></script>
+        <script>
+            var map = new OhioMap('#map');
+            map.drawMap();
+        </script>
+
+    </body>
+</html>
