@@ -1,0 +1,10 @@
+{
+  "name": "d3_maps",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "devDependencies": {
+    "browser-sync": "*",
+    "gulp": "*"
+  }
+}

@@ -1,0 +1,28 @@
+body, html {
+    background: #303c3f;
+    color: #f3f6f9;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    height: 100%;
+}
+
+a {
+    color: #06c;
+    cursor: pointer;
+    text-decoration: none;
+}
+a:hover {
+    color: #09f;
+    text-decoration: underline;
+}
+
+.fullscreen-map {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+.land {
+    fill: #c9cccf;
+    stroke: #303c3f;
+    stroke-width: 0.25px;
+}
