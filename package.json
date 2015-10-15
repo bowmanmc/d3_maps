@@ -1,10 +1,12 @@
 {
-  "name": "d3_maps",
-  "version": "1.0.0",
-  "description": "",
-  "main": "gulpfile.js",
-  "devDependencies": {
-    "browser-sync": "*",
-    "gulp": "*"
-  }
+    "name": "d3_maps",
+    "version": "1.0.0",
+    "description": "Place to develop quick maps",
+    "author": "Michael Bowman",
+    "scripts": {
+        "start": "browser-sync start --config bs-config.js"
+    },
+    "devDependencies": {
+        "browser-sync": "*"
+    }
 }
