@@ -18,7 +18,39 @@
 
     <body>
 
-        <div id="map" class="fullscreen-map"></div>
+        <!--
+        <svg display="none" version="1.1" width="0" height="0">
+            <defs>
+                <symbol id="windmill" viewBox="0 0 512 512">
+                    <title>Windmill</title>
+                    <path id="tower" d="M279,459c-9,0-18,0-36,0s9-225,9-225h18C270,234,297,459,279,459z"/>
+                    <g id="propellers">
+                        <path d="M261,234c0,0-27-36-27-54s9-126,18-126s9,9,9,18C261,103.272,261,234,261,234z"/>
+                        <path d="M261,234c0,0-17.677,41.382-33.266,50.382s-113.619,55.206-118.119,47.411C105.115,324,112.91,319.5,120.704,315C147.786,299.363,261,234,261,234z"/>
+                        <path d="M261,234.055c0,0,44.677-5.382,60.266,3.618s104.619,70.794,100.119,78.589c-4.5,7.793-12.294,3.293-20.089-1.207C374.214,299.418,261,234.055,261,234.055z"/>
+                        <circle cx="261" cy="234" r="27"/>
+                    </g>
+                </symbol>
+            </defs>
+        </svg>
+        <svg class="windmill"><use xlink:href="#windmill" /></svg>
+        -->
+
+        <!-- svg class="windmill" version="1.1" viewBox="0 0 512 512">
+            <title>Windmill</title>
+            <path id="tower" d="M279,459c-9,0-18,0-36,0s9-225,9-225h18C270,234,297,459,279,459z"/>
+            <g id="propellers" style="animation: spin 2s linear infinite;">
+                <path d="M261,234c0,0-27-36-27-54s9-126,18-126s9,9,9,18C261,103.272,261,234,261,234z"/>
+                <path d="M261,234c0,0-17.677,41.382-33.266,50.382s-113.619,55.206-118.119,47.411C105.115,324,112.91,319.5,120.704,315C147.786,299.363,261,234,261,234z"/>
+                <path d="M261,234.055c0,0,44.677-5.382,60.266,3.618s104.619,70.794,100.119,78.589c-4.5,7.793-12.294,3.293-20.089-1.207C374.214,299.418,261,234.055,261,234.055z"/>
+                <circle cx="261" cy="234" r="27"/>
+            </g>
+        </svg -->
+
+        <div id="map" class="fullscreen-map">
+            <div class="base"></div>
+            <div class="data"></div>
+        </div>
 
         <!-- Vendor Scripts -->
         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>

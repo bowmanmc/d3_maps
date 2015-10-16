@@ -17,12 +17,51 @@ a:hover {
 
 .fullscreen-map {
     height: 100%;
-    width: 100%;
+    position: relative;
     text-align: center;
+    width: 100%;
+}
+.base, .data {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
 }
 
 .land {
     fill: #c9cccf;
     stroke: #303c3f;
     stroke-width: 0.25px;
+}
+
+.marker {
+    fill: none;
+    position: absolute;
+    stroke: #0cf;
+    stroke-width: 5;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.windmill {
+    fill: #eee;
+    height: 48px;
+    position: absolute;
+    stroke: none;
+    stroke-width: 0;
+    width: 48px;
+}
+
+.windmill #propellers {
+    stroke: #000;
+    stroke-width: 10px;
+    transform-origin: 261px 234px;
+}
+
+.windmill #tower {
 }
