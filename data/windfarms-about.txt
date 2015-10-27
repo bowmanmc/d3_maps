@@ -1,0 +1,6 @@
+Got the data from Open EI on 10/17/2015
+    Web: http://en.openei.org/wiki/Map_of_Wind_Farms/Data
+    Data: http://en.openei.org/wiki/Special:Ask/-5B-5BCategory:Energy-20Generation-20Facilities-5D-5D-5B-5BSector::Wind-20energy-5D-5D/-3F%3DFacility-20Name-23/-3FFacility/-3FFacilityType/-3FOwner/-3FDeveloper/-3FEnergyPurchaser/-3FPlace/-3FGeneratingCapacity/-3FNumberOfUnits/-3FCommercialOnlineDate/-3FWindTurbineManufacturer/-3FFacilityStatus/-3FCoordinates/format%3Dcsv/limit%3D2500/mainlabel%3DFacility-20Name/offset%3D0
+
+Then I cleaned up the data (seperated out lat/lon) using the cleanwindfarms.js
+script in the root of this project.

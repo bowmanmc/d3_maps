@@ -50,16 +50,14 @@ a:hover {
 
 .windmill {
     fill: #eee;
-    height: 48px;
+    height: 16px;
     position: absolute;
-    stroke: none;
-    stroke-width: 0;
-    width: 48px;
+    stroke: #000;
+    stroke-width: 10px;
+    width: 16px;
 }
 
 .windmill #propellers {
-    stroke: #000;
-    stroke-width: 10px;
     transform-origin: 261px 234px;
 }
 

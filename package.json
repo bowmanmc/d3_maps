@@ -1,12 +1,15 @@
 {
-    "name": "d3_maps",
-    "version": "1.0.0",
-    "description": "Place to develop quick maps",
-    "author": "Michael Bowman",
-    "scripts": {
-        "start": "browser-sync start --config bs-config.js"
-    },
-    "devDependencies": {
-        "browser-sync": "*"
-    }
+  "name": "d3_maps",
+  "version": "1.0.0",
+  "description": "Place to develop quick maps",
+  "author": "Michael Bowman",
+  "scripts": {
+    "start": "browser-sync start --config bs-config.js"
+  },
+  "dependencies": {
+    "d3": "^3.5.6"
+  },
+  "devDependencies": {
+    "browser-sync": "*"
+  }
 }

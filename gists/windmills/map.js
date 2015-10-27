@@ -16,14 +16,11 @@ function Map(elementIdSelector) {
         var map = this;
         var el = $(map.mapSelector)[0];
 
-        //var width = 960,
-        //    height = 1200;
         map.height = el.clientHeight;
         map.width = el.clientWidth;
-        console.log('Making map size: ' + map.width + 'x' + map.height);
 
-        //map.projection = d3.geo.albersUsa();
-        map.projection = d3.geo.conicConformal();
+        map.projection = d3.geo.albersUsa();
+        //map.projection = d3.geo.conicConformal();
 
         map.path = d3.geo.path().projection(map.projection);
 
@@ -34,44 +31,12 @@ function Map(elementIdSelector) {
         map.lyrLand = map.svg.append('g');
         map.lyrData = map.svg.append('g');
 
-        //map.loadStates().then(function(us) {
-        //    map.drawStates(us);
-        map.loadState().then(function(oh) {
-            map.drawState(oh);
+        map.loadStates().then(function(us) {
+            map.drawStates(us);
             map.loadData().then(function(data) {
                 map.drawData(data);
             });
         });
-    };
-
-    this.loadState = function() {
-        var deferred = $.Deferred();
-        d3.json('state.oh.json', function(error, response) {
-            deferred.resolve(response);
-        });
-        return deferred.promise();
-    };
-
-    this.drawState = function(oh) {
-        var map = this;
-
-        var centroid = d3.geo.centroid(oh.features[0]);
-        var r = [centroid[0] * -1, centroid[1] * -1];
-        console.log('Rotate: ' + JSON.stringify(r));
-        map.projection.scale(1).translate([0, 0]).rotate(r);
-
-        var b = map.path.bounds(oh),
-            s = 0.95 / Math.max((b[1][0] - b[0][0]) / map.width, (b[1][1] - b[0][1]) / map.height),
-            t = [(map.width - s * (b[1][0] + b[0][0])) / 2, (map.height - s * (b[1][1] + b[0][1])) / 2];
-
-        map.bounds = d3.geo.bounds(oh.features[0]);
-        map.projection.scale(s).translate(t);
-
-        map.lyrLand.selectAll('path')
-            .data(oh.features)
-            .enter().append('path')
-            .attr('class', 'land')
-            .attr('d', map.path);
     };
 
     this.loadStates = function() {
@@ -101,65 +66,66 @@ function Map(elementIdSelector) {
     this.drawData = function(data) {
         var map = this;
 
-        var minLat = map.bounds[0][1];
-        var maxLat = map.bounds[1][1];
-        var minLon = map.bounds[0][0];
-        var maxLon = map.bounds[1][0];
+        var extent = d3.extent(data, function(d, i) {
+            if (isNaN(d.capacityNum)) {
+                console.log('BAD: ' + d.GeneratingCapacity);
+                return 0;
+            }
+            // coerce into numeric
+            return +d.capacityNum;
+        }).reverse();
 
-        //var lyrData = d3.select(map.mapSelector).select('.data');
-        var SVG = '<svg class="marker" viewBox="0 0 120 120" version="1.1"><circle cx="60" cy="60" r="50"/></svg>';
-        var ohioData = [];
-        var i, dt, coords, lat, lon;
+        console.log('EXTENT: ' + JSON.stringify(extent));
+
+        var scale = d3.scale.linear().domain(extent).range([0.5, 10.0]);
+
+        var i, dt, secs;
         var len = data.length;
         for (i = 0; i < len; i++) {
             dt = data[i];
-            coords = dt.Coordinates.split(',');
-            lat = parseFloat(coords[0].replace('°', ''));
-            lon = parseFloat(coords[1].replace('°', ''));
-            if ((lat >= minLat && lat <= maxLat) &&
-                (lon >= minLon && lon <= maxLon)) {
-                ohioData.push(dt);
-
-                var capacity = Number(dt.GeneratingCapacity.replace(' MW', ''));
-                var secs = 1 / capacity;
-
-                console.log('Farm: ' + dt.GeneratingCapacity + ' - ' + secs + 's');
-
-                var pos = map.projection([lon, lat]);
-                var posStr = 'left: ' + (pos[0] - 24) + '; top: ' + (pos[1] - 42) + ';';
-                // put an svg element in the right place...
-                /*$(SVG).attr({
-                    'width': '24px',
-                    'height': '24px',
-                    'style': posStr
-                }).appendTo(map.mapSelector + ' .data');
-                */
-                var windmill = $(map.WINDMILL_SVG);
-                $(windmill).attr({
-                    'style': posStr
-                });
-                $(windmill).find('#propellers').attr({
-                    'style': 'animation: spin ' + secs + 's linear infinite;'
-                });
-                windmill.appendTo(map.mapSelector + ' .data');
+            if (dt.capacityNum < 0 || isNaN(dt.capacityNum)) {
+                dt.capacityNum = 0;
             }
+
+            secs = scale(dt.capacityNum);
+            if (dt.capacityNum > 1000) {
+                console.log('    ' + dt.capacityNum + ' -> ' + secs);
+            }
+
+            var pos = map.projection([dt.lon, dt.lat]);
+            if (pos === null) {
+                continue;
+            }
+            // offsets depend on size of windmill in styles.css
+            //var offsetX = 24;
+            var offsetX = 8;
+            //var offsetY = 42;
+            var offsetY = 13;
+            var posStr = 'left: ' + (pos[0] - offsetX) + '; top: ' + (pos[1] - offsetY) + ';';
+
+            // put an svg element in the right place...
+            var windmill = $(map.WINDMILL_SVG);
+            $(windmill).attr({
+                'style': posStr
+            });
+            $(windmill).find('#propellers').attr({
+                'style': 'animation: spin ' + secs + 's linear infinite;'
+            });
+            windmill.appendTo(map.mapSelector + ' .data');
         }
 
+        // debug code to draw circles at the coords
         map.lyrData.selectAll('circle')
-            .data(ohioData)
+            .data(data)
             .enter().append('circle')
             .attr('r', 3)
-            .attr('class', 'windmill')
             .attr('transform', function(d) {
-                var coords = d.Coordinates.split(',');
-                var lat = coords[0].replace('°', '');
-                var lon = coords[1].replace('°', '');
-                var transform = map.projection([lon, lat]);
+                var transform = map.projection([d.lon, d.lat]);
                 if (transform !== null) {
                     return 'translate(' + transform + ')';
                 }
-                console.log('Bad Coordinates: ' + d.Coordinates + ' -> ' + transform);
-                return 'translate(-1000000, -1000000)';
+                console.log('Bad coordinates "' + d.coords + '" - "' + transform + '"');
+                return 'translate(-100000, -100000)';
             });
     };
 }
