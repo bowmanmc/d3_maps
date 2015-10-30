@@ -77,7 +77,7 @@ function Map(elementIdSelector) {
 
         console.log('EXTENT: ' + JSON.stringify(extent));
 
-        var scale = d3.scale.linear().domain(extent).range([0.5, 10.0]);
+        var scale = d3.scale.linear().clamp(true).domain([1000, 0]).range([0.25, 5]);
 
         var i, dt, secs;
         var len = data.length;
@@ -115,17 +115,17 @@ function Map(elementIdSelector) {
         }
 
         // debug code to draw circles at the coords
-        map.lyrData.selectAll('circle')
-            .data(data)
-            .enter().append('circle')
-            .attr('r', 3)
-            .attr('transform', function(d) {
-                var transform = map.projection([d.lon, d.lat]);
-                if (transform !== null) {
-                    return 'translate(' + transform + ')';
-                }
-                console.log('Bad coordinates "' + d.coords + '" - "' + transform + '"');
-                return 'translate(-100000, -100000)';
-            });
+        // map.lyrData.selectAll('circle')
+        //     .data(data)
+        //     .enter().append('circle')
+        //     .attr('r', 3)
+        //     .attr('transform', function(d) {
+        //         var transform = map.projection([d.lon, d.lat]);
+        //         if (transform !== null) {
+        //             return 'translate(' + transform + ')';
+        //         }
+        //         console.log('Bad coordinates "' + d.coords + '" - "' + transform + '"');
+        //         return 'translate(-100000, -100000)';
+        //     });
     };
 }
